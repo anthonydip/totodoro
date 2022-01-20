@@ -4,15 +4,12 @@ import styled from 'styled-components';
 
 // Import components
 import NavBar from '../components/NavBar';
+import Clock from '../components/clock/Clock';
 
 // import Image from 'next/image'
 
 const Container = styled.div`
   padding: 1rem;
-`;
-
-const NavContainer = styled.div`
-  
 `;
 
 const HomePage = () => {
@@ -31,9 +28,9 @@ const HomePage = () => {
         }
       `}</style>
 
-      <NavContainer>
-        <NavBar/>
-      </NavContainer>
+      <NavBar/>
+
+      <Clock/>
 
     </Container>
   )

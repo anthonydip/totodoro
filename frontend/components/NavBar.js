@@ -14,7 +14,10 @@ const Container = styled.div`
     padding: 1rem;
     flex-direction: row;
     align-items: center;
-    background-color: #84705a;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #816b5a;
     border-radius: 10px;
     border-style: solid;
     border-width: 1px;
@@ -33,20 +36,16 @@ const BtnContainer = styled.div`
     margin-left: auto;
 `;
 
-const Logo = styled(Image)`
-    
-`;
-
 const NavBar = () => {
     return(
         <Container>
 
-            <Logo src='/totoro.png' alt="Totodoro Pixel" width={32} height={32}/>
+            <Image src='/totoro.png' alt="Totodoro Pixel" width={32} height={32}/>
             <Title>Totodoro</Title>
 
             <BtnContainer>
                 <IconButton 
-                    
+                    disableTouchRipple
                     sx={{
                         backgroundColor: '#ab9889',
                         borderRadius: 1,
@@ -60,7 +59,7 @@ const NavBar = () => {
                 </IconButton>
 
                 <IconButton 
-                    
+                    disableTouchRipple
                     sx={{
                         backgroundColor: '#ab9889',
                         borderRadius: 1,
