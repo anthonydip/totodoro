@@ -11,17 +11,15 @@ const Container = styled.div`
 
 const OptionButton = styled.button`
     // background-color: #8f8277;
-    color: white;
+    color: #505050;
     font-family: 'Varela Round';
     font-size: 14px;
     border-radius: 5px;
     border-width: 0px;
-    width: 100px;
-    max-width: 100px;
-    height: 30px;
-    max-height: 30px;
+    width: 77;
+    height: 23px;
     cursor: pointer;
-    background-color: ${({ activated }) => activated ? '#8f8277' : '#b3a295'};
+    background-color: ${({ activated }) => activated ? '#DDCCB1' : '#E9DFCD'};
     font-weight: ${({ activated }) => activated ? 'bold' : 'none'};
 `;
 
@@ -58,7 +56,7 @@ const Options = ({ setOption }) => {
             <Stack 
                 direction='row'
                 divider={<Divider orientation='vertical' flexItem />}
-                spacing={1}
+                spacing={0.75}
                 justifyContent='center'
             >
                 <OptionButton activated={first} onClick={() => toggleOption('pomodoro')}>

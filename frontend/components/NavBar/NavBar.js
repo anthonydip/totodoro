@@ -1,57 +1,60 @@
 import styled from 'styled-components';
-import Image from 'next/image';
 
 // Import components
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 
 // Import icons
-import SettingsIcon from '@mui/icons-material/Settings';
-import AccountIcon from '@mui/icons-material/AccountCircle';
+import SettingsIcon from '@mui/icons-material/SettingsOutlined';
+import AccountIcon from '@mui/icons-material/AccountCircleOutlined';
 
+// NavBar container styles
 const Container = styled.div`
     display: flex;
     padding: 1rem;
     flex-direction: row;
     align-items: center;
+    min-width: 400px;
     max-width: 600px;
+    max-height: 58px;
     margin-left: auto;
     margin-right: auto;
-    background-color: #816b5a;
+    background-color: #ECE3D4;
     border-radius: 10px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #5a483b;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
+// Totodoro title styles
 const Title = styled.span`
-    color: white;
-    font-size: 24px;
-    font-weight: 700;
+    color: #505050;
+    font-size: 30px;
+    margin-left: auto;
+    margin-right: 142px;
 `;
 
+// Button container styles
 const BtnContainer = styled.div`
     display: flex;
     gap: 10px;
-    margin-left: auto;
 `;
 
 const NavBar = () => {
     return(
         <Container>
 
-            <Image src='/totoro.png' alt="Totodoro Pixel" width={32} height={32}/>
             <Title>Totodoro</Title>
 
             <BtnContainer>
                 <IconButton 
                     disableTouchRipple
                     sx={{
-                        backgroundColor: '#ab9889',
-                        borderRadius: 1,
-                        color: 'white',
+                        backgroundColor: '#E2D6C0',
+                        borderRadius: '5px',
+                        width: '36px',
+                        height: '36px',
+                        color: '#505050',
                         '&:hover': {
-                            backgroundColor: '#b7a79a'
+                            backgroundColor: '#dccdb2'
                         }
                     }}
                 >
@@ -61,11 +64,13 @@ const NavBar = () => {
                 <IconButton 
                     disableTouchRipple
                     sx={{
-                        backgroundColor: '#ab9889',
-                        borderRadius: 1,
-                        color: 'white',
+                        backgroundColor: '#E2D6C0',
+                        borderRadius: '5px',
+                        width: '36px',
+                        height: '36px',
+                        color: '#505050',
                         '&:hover': {
-                            backgroundColor: '#b7a79a'
+                            backgroundColor: '#dccdb2'
                         }
                     }}
                 >
