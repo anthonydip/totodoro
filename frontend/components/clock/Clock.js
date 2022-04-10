@@ -4,6 +4,10 @@ import styled from 'styled-components';
 // Import clock components
 import Options from './Options';
 
+// Import icons
+import RestartIcon from '@mui/icons-material/RestartAlt';
+import SkipIcon from '@mui/icons-material/SkipNext';
+
 // Clock container styles
 const Container = styled.div`
     // background-color: blue;
@@ -20,10 +24,14 @@ const Container = styled.div`
     border-radius: 10px;
 `;
 
-// Timer control styles
+// Timer control container styles
 const TimerControls = styled.div`
+    // background-color: blue;
     display: flex;
+    flex-direction: row;
     justify-content: center;
+    align-items: center;
+    gap: 10px;
 `;
 
 // Timer button styles
@@ -44,6 +52,24 @@ const TimerButton = styled.button`
     &:active {
         transform: translateY(2px);
     }
+`;
+
+// Button styles for restart and skip timer
+// Restart and Skip timer have opposite "running" states
+const ControlButton = styled.button`
+    background-color: transparent;
+    border: none;
+    margin-top: 25px;
+    transition: opacity 0.5s ease;
+    ${({running}) => running ? 
+        `
+            cursor: default;
+            opacity: 0;
+        ` : 
+        `
+            cursor: pointer;
+            opacity: 1;
+        `}
 `;
 
 // Time text styles
@@ -67,7 +93,6 @@ const Clock = () => {
 
     // useEffect to handle toggle functionality of timer
     useEffect(() => {
-
         // Timer is started
         if(timerState){
             let duration = 0;
@@ -117,14 +142,31 @@ const Clock = () => {
         setTimerState(!timerState);
     }
 
+    // Function to restart timer
+    const restartTimer = () => {
+        setTime("25:00");
+    }
+
+    const skipTimer = () => {
+    }
+
     return(
         <Container>
             <Options option={option} setOption={setOption}/>
             <StyledTime>{time}</StyledTime>
             <TimerControls>
+
+                <ControlButton running={timerState} disabled={timerState} onClick={restartTimer}>
+                    <RestartIcon sx={{ color: '#505050', fontSize: 30 }}/>
+                </ControlButton>
+
                 <TimerButton onClick={toggleTimer}>
                     {timerState ? <span>STOP</span> : <span>START</span>}
                 </TimerButton>
+
+                <ControlButton running={!timerState} disabled={!timerState} onClick={skipTimer}>
+                    <SkipIcon sx={{ color: '#505050', fontSize: 30 }}/>
+                </ControlButton>
             </TimerControls>
             
         </Container>
