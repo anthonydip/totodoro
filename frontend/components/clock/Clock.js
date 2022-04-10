@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 // Import clock components
 import Options from './Options';
-import Timer from './Timer';
 
 // Clock container styles
 const Container = styled.div`
@@ -21,12 +20,13 @@ const Container = styled.div`
     border-radius: 10px;
 `;
 
+// Timer control styles
 const TimerControls = styled.div`
-    // background-color: blue;
     display: flex;
     justify-content: center;
 `;
 
+// Timer button styles
 const TimerButton = styled.button`
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     background-color: #EFE8DC;
@@ -46,52 +46,81 @@ const TimerButton = styled.button`
     }
 `;
 
+// Time text styles
+const StyledTime = styled.span`
+    color: #505050;
+    font-family: 'Varela Round';
+    font-size: 100px;
+    display: table;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+`;
+
+// Variable to hold timer interval
+let timerInterval = null;
+
 const Clock = () => {
     const [option, setOption] = useState('pomodoro');
     const [timerState, setTimerState] = useState(false);
-    const [time, setTime] = useState("5:00");
+    const [time, setTime] = useState("25:00");
 
-    let timer = null;
-
-    // Timer function toggler
+    // useEffect to handle toggle functionality of timer
     useEffect(() => {
+
+        // Timer is started
         if(timerState){
-            console.log("timer on")
+            let duration = 0;
 
+            // Starting new timer, use new duration
+            if(time == "25:00"){
+                duration = 60 * 25;
+            }
+            // Continuing from stopped timer, use remaining duration
+            else{
+                // Parse minutes
+                duration += (parseInt(time.substring(0,2)) * 60);
 
+                // Parse seconds
+                duration += parseInt(time.substring(3,5));
+            }
+            
+            let timer = duration, minutes, seconds;
 
-            // var duration = 60 * 5;
-            // var timer = duration, minutes, seconds;
-            // setInterval(function () {
-            //     minutes = parseInt(timer / 60, 10);
-            //     seconds = parseInt(timer % 60, 10);
+            // Start timer interval, immediately executing the first interval
+            timerInterval = setInterval(function startTimer() {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
 
-            //     seconds = seconds < 10 ? "0" + seconds : seconds;
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
 
-            //     setTime(minutes + ":" + seconds);
+                setTime(minutes + ":" + seconds);
 
-            //     if (--timer < 0) {
-            //         timer = duration;
-            //     }
-            // }, 1000);
+                if (--timer < 0) {
+                    timer = duration;
+                }
+
+                return startTimer;
+            }(), 1000);
+
         }
+        // Timer is stopped, reset interval
         else{
-            console.log("timer off")
+            clearInterval(timerInterval);
+            timerInterval = null;
         }
     }, [timerState]);
 
     // Toggle start/stop state of timer
     const toggleTimer = () => {
         setTimerState(!timerState);
-
-        
     }
 
     return(
         <Container>
             <Options option={option} setOption={setOption}/>
-            <Timer />
-            {time}
+            <StyledTime>{time}</StyledTime>
             <TimerControls>
                 <TimerButton onClick={toggleTimer}>
                     {timerState ? <span>STOP</span> : <span>START</span>}
