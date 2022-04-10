@@ -23,7 +23,7 @@ const OptionButton = styled.button`
     font-weight: ${({ activated }) => activated ? 'bold' : 'none'};
 `;
 
-const Options = ({ setOption, setTime }) => {
+const Options = ({ setOption, setTime, setTimerState, timerInterval }) => {
     const [first, setFirst] = useState(true);
     const [second, setSecond] = useState(false);
     const [third, setThird] = useState(false);
@@ -39,25 +39,45 @@ const Options = ({ setOption, setTime }) => {
                 setSecond(false);
                 setThird(false);
 
+                // Set time and timer state
                 setTime("25:00");
+                setTimerState(false);
+
+                // Clear existing timer interval
+                clearInterval(timerInterval);
+                timerInterval = null;
                 break;
             // Short break
             case 'short':
+                // Set option state and button styles
                 setOption('short');
                 setFirst(false);
                 setSecond(true);
                 setThird(false);
 
+                // Set time and timer state
                 setTime("05:00");
+                setTimerState(false);
+
+                // Clear existing timer interval
+                clearInterval(timerInterval);
+                timerInterval = null;
                 break;
             // Long break
             case 'long':
+                // Set option state and button styles
                 setOption('long');
                 setFirst(false);
                 setSecond(false);
                 setThird(true);
 
+                // Set time and timer state
                 setTime("15:00");
+                setTimerState(false);
+
+                // Clear existing timer interval
+                clearInterval(timerInterval);
+                timerInterval = null;
                 break;
         }
     }

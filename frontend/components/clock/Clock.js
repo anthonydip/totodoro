@@ -102,17 +102,6 @@ const Clock = () => {
                 if(option == 'pomodoro') duration = 60 * 25;
                 if(option == 'short') duration = 60 * 5;
                 if(option == 'long') duration = 60 * 15;
-                // switch(option){
-                //     case 'pomodoro':
-                //         duration = 60 * 25;
-                //         break;
-                //     case 'short':
-                //         duration = 60 * 5;
-                //         break;
-                //     case 'long':
-                //         duration = 60 * 15;
-                //         break;
-                // }
             }
             // Continuing from stopped timer, use remaining duration
             else{
@@ -169,7 +158,7 @@ const Clock = () => {
 
     return(
         <Container>
-            <Options option={option} setOption={setOption} setTime={setTime}/>
+            <Options option={option} setOption={setOption} setTime={setTime} setTimerState={setTimerState} timerInterval={timerInterval}/>
             <StyledTime>{time}</StyledTime>
             <TimerControls>
 
