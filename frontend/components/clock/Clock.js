@@ -98,8 +98,21 @@ const Clock = () => {
             let duration = 0;
 
             // Starting new timer, use new duration
-            if(time == "25:00"){
-                duration = 60 * 25;
+            if(time == "25:00" || time == "05:00" || time == "15:00"){
+                if(option == 'pomodoro') duration = 60 * 25;
+                if(option == 'short') duration = 60 * 5;
+                if(option == 'long') duration = 60 * 15;
+                // switch(option){
+                //     case 'pomodoro':
+                //         duration = 60 * 25;
+                //         break;
+                //     case 'short':
+                //         duration = 60 * 5;
+                //         break;
+                //     case 'long':
+                //         duration = 60 * 15;
+                //         break;
+                // }
             }
             // Continuing from stopped timer, use remaining duration
             else{
@@ -144,15 +157,19 @@ const Clock = () => {
 
     // Function to restart timer
     const restartTimer = () => {
-        setTime("25:00");
+        if(option == 'pomodoro') setTime("25:00");
+        if(option == 'short') setTime("05:00");
+        if(option == 'long') setTime("15:00");
     }
 
+    // Function to skip timer
     const skipTimer = () => {
+
     }
 
     return(
         <Container>
-            <Options option={option} setOption={setOption}/>
+            <Options option={option} setOption={setOption} setTime={setTime}/>
             <StyledTime>{time}</StyledTime>
             <TimerControls>
 
