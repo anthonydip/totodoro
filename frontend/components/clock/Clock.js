@@ -100,7 +100,7 @@ const Clock = () => {
 
             // Starting new timer, use new duration
             if(time == "25:00" || time == "05:00" || time == "15:00"){
-                if(option == 'pomodoro') duration = 60 * 1;
+                if(option == 'pomodoro') duration = 60 * 25;
                 if(option == 'short') duration = 60 * 5;
                 if(option == 'long') duration = 60 * 15;
             }
