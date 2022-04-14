@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 // Import components
@@ -23,10 +23,49 @@ const OptionButton = styled.button`
     font-weight: ${({ activated }) => activated ? 'bold' : 'none'};
 `;
 
-const Options = ({ setOption, setTime, setTimerState, timerInterval }) => {
+const Options = ({ option, setOption, setTime, setTimerState, timerInterval }) => {
     const [first, setFirst] = useState(true);
     const [second, setSecond] = useState(false);
     const [third, setThird] = useState(false);
+
+    // useEffect to check updated option state from a skipped/finished timer
+    useEffect(() => {
+        switch(option){
+            // Pomodoro
+            case 'pomodoro':
+                // Set option state and button styles
+                setFirst(true);
+                setSecond(false);
+                setThird(false);
+
+                // Set time and timer state
+                setTime("25:00");
+                setTimerState(false);
+                break;
+            // Short break
+            case 'short':
+                // Set option state and button styles
+                setFirst(false);
+                setSecond(true);
+                setThird(false);
+
+                // Set time and timer state
+                setTime("05:00");
+                setTimerState(false);
+                break;
+            // Long break
+            case 'long':
+                // Set option state and button styles
+                setFirst(false);
+                setSecond(false);
+                setThird(true);
+
+                // Set time and timer state
+                setTime("15:00");
+                setTimerState(false);
+                break;
+        }
+    }, [option]);
 
     // Toggle between pomodoro, short break and long break timer options
     const toggleOption = (selected) => {

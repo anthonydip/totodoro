@@ -90,6 +90,7 @@ const Clock = () => {
     const [option, setOption] = useState('pomodoro');
     const [timerState, setTimerState] = useState(false);
     const [time, setTime] = useState("25:00");
+    const [pomodoros, setPomodoros] = useState(0);
 
     // useEffect to handle toggle functionality of timer
     useEffect(() => {
@@ -99,7 +100,7 @@ const Clock = () => {
 
             // Starting new timer, use new duration
             if(time == "25:00" || time == "05:00" || time == "15:00"){
-                if(option == 'pomodoro') duration = 60 * 25;
+                if(option == 'pomodoro') duration = 60 * 1;
                 if(option == 'short') duration = 60 * 5;
                 if(option == 'long') duration = 60 * 15;
             }
@@ -112,6 +113,7 @@ const Clock = () => {
                 duration += parseInt(time.substring(3,5));
             }
             
+            // Declare timer variables
             let timer = duration, minutes, seconds;
 
             // Start timer interval, immediately executing the first interval
@@ -124,6 +126,7 @@ const Clock = () => {
 
                 setTime(minutes + ":" + seconds);
 
+                // Duration has finished, call skip function
                 if (--timer < 0) {
                     timer = duration;
                 }
@@ -153,7 +156,30 @@ const Clock = () => {
 
     // Function to skip timer
     const skipTimer = () => {
+        // Clear the current time interval
+        clearInterval(timerInterval);
+        timerInterval = null;
 
+        // If current option is pomodoro
+        if(option == 'pomodoro'){
+            // Increment pomodoros finished
+            setPomodoros(++pomodoros);
+
+            // Long break after every 4 pomodoros
+            if(pomodoros % 4 == 0){
+                setOption('long');
+            }
+            // Short break after every pomodoro
+            else{
+                setOption('short');
+            }
+        }
+
+        // If current option is a break
+        else{
+            setOption('pomodoro');
+        }
+        
     }
 
     return(
