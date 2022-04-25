@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 
 // Import components
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
+import { ThemeContext } from '../Contexts/ThemeContext';
 
 const Container = styled.div`
 
@@ -11,7 +12,7 @@ const Container = styled.div`
 
 const OptionButton = styled.button`
     // background-color: #8f8277;
-    color: #505050;
+    color: ${({ theme }) => theme === 'light' ? `#505050` : `white`};
     font-family: 'Varela Round';
     font-size: 14px;
     border-radius: 5px;
@@ -19,11 +20,18 @@ const OptionButton = styled.button`
     width: 77;
     height: 23px;
     cursor: pointer;
-    background-color: ${({ activated }) => activated ? '#DDCCB1' : '#E9DFCD'};
+    transition: color 0.50s linear;
     font-weight: ${({ activated }) => activated ? 'bold' : 'none'};
+
+    ${({ theme, activated }) => theme === 'light' ? `
+        background-color: ${activated ? '#DDCCB1' : 'transparent'};
+    ` : `
+        background-color: ${activated ? '#262e36' : 'transparent'};
+    `}
 `;
 
 const Options = ({ option, setOption, setTime, setTimerState, timerInterval }) => {
+    const { currentTheme } = useContext(ThemeContext);
     const [first, setFirst] = useState(true);
     const [second, setSecond] = useState(false);
     const [third, setThird] = useState(false);
@@ -129,15 +137,15 @@ const Options = ({ option, setOption, setTime, setTimerState, timerInterval }) =
                 spacing={0.75}
                 justifyContent='center'
             >
-                <OptionButton activated={first} onClick={() => toggleOption('pomodoro')}>
+                <OptionButton theme={currentTheme} activated={first} onClick={() => toggleOption('pomodoro')}>
                     Pomodoro
                 </OptionButton>
 
-                <OptionButton activated={second} onClick={() => toggleOption('short')}>
+                <OptionButton theme={currentTheme} activated={second} onClick={() => toggleOption('short')}>
                     Short Break
                 </OptionButton>
 
-                <OptionButton activated={third} onClick={() => toggleOption('long')}>
+                <OptionButton theme={currentTheme} activated={third} onClick={() => toggleOption('long')}>
                     Long Break
                 </OptionButton>
             </Stack>

@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 
 // Import clock components
 import Options from './Options';
+import { ThemeContext } from '../Contexts/ThemeContext';
 
 // Import icons
 import RestartIcon from '@mui/icons-material/RestartAlt';
@@ -11,7 +12,7 @@ import SkipIcon from '@mui/icons-material/SkipNext';
 // Clock container styles
 const Container = styled.div`
     // background-color: blue;
-    background-color: #E9DFCD;
+    background-color: ${({ theme }) => theme === 'light' ? `#E9DFCD` : `#2f3842`};
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     padding-top: 15px;
     padding-bottom: 15px;
@@ -22,6 +23,7 @@ const Container = styled.div`
     margin-left: auto;
     margin-right: auto;
     border-radius: 10px;
+    transition: all 0.50s linear;
 `;
 
 // Timer control container styles
@@ -37,8 +39,8 @@ const TimerControls = styled.div`
 // Timer button styles
 const TimerButton = styled.button`
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    background-color: #EFE8DC;
-    color: #505050;
+    background-color: ${({ theme }) => theme === 'light' ? `#EFE8DC` : `#485665`};
+    color: ${({ theme }) => theme === 'light' ? `#505050` : `white`};
     font-family: 'Varela Round';
     font-size: 32px;
     border-radius: 5px;
@@ -48,6 +50,7 @@ const TimerButton = styled.button`
     margin-top: 30px;
     margin-bottom: 10px;
     cursor: pointer;
+    transition: all 0.50s linear;
 
     &:active {
         transform: translateY(2px);
@@ -74,19 +77,20 @@ const ControlButton = styled.button`
 
 // Time text styles
 const StyledTime = styled.span`
-    color: #505050;
     font-family: 'Varela Round';
     font-size: 100px;
     display: table;
     margin-top: 30px;
     margin-left: auto;
     margin-right: auto;
+    transition: color 0.50s linear;
 `;
 
 // Variable to hold timer interval
 let timerInterval = null;
 
 const Clock = () => {
+    const { currentTheme } = useContext(ThemeContext);
     const [option, setOption] = useState('pomodoro');
     const [timerState, setTimerState] = useState(false);
     const [time, setTime] = useState("25:00");
@@ -183,21 +187,33 @@ const Clock = () => {
     }
 
     return(
-        <Container>
+        <Container theme={currentTheme}>
             <Options option={option} setOption={setOption} setTime={setTime} setTimerState={setTimerState} timerInterval={timerInterval}/>
             <StyledTime>{time}</StyledTime>
             <TimerControls>
 
                 <ControlButton running={timerState} disabled={timerState} onClick={restartTimer}>
-                    <RestartIcon sx={{ color: '#505050', fontSize: 30 }}/>
+                    <RestartIcon 
+                        sx={{ 
+                            color: currentTheme === 'light' ? '#505050' : 'white', 
+                            fontSize: 30,
+                            transition: 'color 0.50s linear'
+                        }}
+                    />
                 </ControlButton>
 
-                <TimerButton onClick={toggleTimer}>
+                <TimerButton theme={currentTheme} onClick={toggleTimer}>
                     {timerState ? <span>STOP</span> : <span>START</span>}
                 </TimerButton>
 
                 <ControlButton running={!timerState} disabled={!timerState} onClick={skipTimer}>
-                    <SkipIcon sx={{ color: '#505050', fontSize: 30 }}/>
+                    <SkipIcon
+                        sx={{ 
+                            color: currentTheme === 'light' ? '#505050' : 'white', 
+                            fontSize: 30,
+                            transition: 'color 0.50s linear'
+                        }}
+                    />
                 </ControlButton>
             </TimerControls>
             
