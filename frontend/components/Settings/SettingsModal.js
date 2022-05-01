@@ -77,6 +77,8 @@ const SettingsModal = ({ open, setOpen, toggleDarkMode }) => {
                 <Divider/>
 
                 <OptionsContainer>
+                    
+
                     <ToggleButton
                         label='Dark Mode'
                         onChange={toggleDarkMode}

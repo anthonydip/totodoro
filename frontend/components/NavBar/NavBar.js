@@ -9,6 +9,7 @@ import { ThemeContext } from '../Contexts/ThemeContext';
 // Import icons
 import SettingsIcon from '@mui/icons-material/SettingsOutlined';
 import AccountIcon from '@mui/icons-material/AccountCircleOutlined';
+import VolumeIcon from '@mui/icons-material/VolumeUp';
 
 // NavBar container styles
 const Container = styled.div`
@@ -43,11 +44,37 @@ const BtnContainer = styled.div`
     gap: 10px;
 `;
 
-const NavBar = ({ setOpenSettings }) => {
+const NavBar = ({ setOpenSettings, videoEvent }) => {
     const { currentTheme } = useContext(ThemeContext);
+
+    const toggleMusic = () => {
+        if(!videoEvent){
+            console.log("here");
+        }
+        else{
+            console.log("test");
+        }
+    };
 
     return(
         <Container theme={currentTheme}>
+            <IconButton 
+                    onClick={toggleMusic}
+                disableTouchRipple
+                sx={{
+                    backgroundColor: currentTheme === 'light' ? '#E2D6C0' : '#2f3842',
+                    borderRadius: '5px',
+                    width: '36px',
+                    height: '36px',
+                    color: currentTheme === 'light' ? '#505050' : 'white',
+                    transition: 'all 0.50s linear',
+                    '&:hover': {
+                        backgroundColor: currentTheme === 'light' ? '#dccdb2' : '#252c34',
+                    }
+                }}
+            >
+                <VolumeIcon/>
+            </IconButton>
 
             <Title>Totodoro</Title>
 

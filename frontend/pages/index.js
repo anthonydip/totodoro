@@ -12,6 +12,8 @@ import { GlobalStyles } from '../components/Theme/GlobalStyles';
 import { lightTheme, darkTheme } from '../components/Theme/Themes';
 import { ThemeContext } from '../components/Contexts/ThemeContext';
 
+import YouTube from 'react-youtube';
+
 // Container
 const Container = styled.div`
   margin: 1rem;
@@ -22,6 +24,8 @@ const Container = styled.div`
   margin-right: auto;
 `;
 
+let videoEvent = null;
+
 const HomePage = () => {
   const [currentTheme, setCurrentTheme] = useState('light');
   const [pageColour, setPageColour] = useState('#ece3d4');
@@ -31,6 +35,20 @@ const HomePage = () => {
   const toggleDarkMode = () => {
     console.log("dark mode");
     currentTheme === 'light' ? setCurrentTheme('dark') : setCurrentTheme('light');
+  }
+
+  const opts = {
+    height: '390',
+    width: '640',
+    playerVars: {
+      // https://developers.google.com/youtube/player_parameters
+      autoplay: 1,
+    },
+  };
+
+  const handleVideoReady = event => {
+    videoEvent = event;
+    event.target.pauseVideo();
   }
 
   return (
@@ -58,10 +76,11 @@ const HomePage = () => {
 
           <Container>
 
-            <NavBar setOpenSettings={setOpenSettings}/>
+            <NavBar setOpenSettings={setOpenSettings} videoEvent={videoEvent}/>
 
             <Clock/>
 
+            <YouTube videoId="AZals4U6Z_I" opts={opts} onReady={handleVideoReady}/>
             <SettingsModal open={openSettings} setOpen={setOpenSettings} toggleDarkMode={toggleDarkMode}/>
 
           </Container>
