@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Modal from '@mui/material/Modal';
 import Divider from '@mui/material/Divider';
 import CloseIcon from '@mui/icons-material/Close';
+import ToggleButton from './ToggleButton';
 import { ThemeContext } from '../Contexts/ThemeContext';
 
 const ModalContainer = styled.div`
@@ -41,6 +42,10 @@ const Title = styled.span`
     // color: #505050;
 `
 
+const OptionsContainer = styled.div`
+
+`;
+
 const SettingsModal = ({ open, setOpen, toggleDarkMode }) => {
     const { currentTheme } = useContext(ThemeContext);
     const handleOpen = () => setOpen(true);
@@ -59,8 +64,11 @@ const SettingsModal = ({ open, setOpen, toggleDarkMode }) => {
                     <CloseButton onClick={handleClose}>
                         <CloseIcon 
                             sx={{ 
-                                color: currentTheme === 'light' ? '#505050' : 'white', 
-                                transition: 'all 0.5s linear'
+                                color: currentTheme === 'light' ? '#6b6b6b' : '#dbdbdb', 
+                                transition: 'all 0.5s linear',
+                                '&:hover': {
+                                    color: currentTheme === 'light' ? '#505050' : 'white',
+                                }
                             }}
                         />
                     </CloseButton>
@@ -68,10 +76,12 @@ const SettingsModal = ({ open, setOpen, toggleDarkMode }) => {
 
                 <Divider/>
 
-                <button onClick={toggleDarkMode}>
-                    toggle
-                </button>
-                
+                <OptionsContainer>
+                    <ToggleButton
+                        label='Dark Mode'
+                        onChange={toggleDarkMode}
+                    />
+                </OptionsContainer>
                 
             </ModalContainer>
         </Modal>
